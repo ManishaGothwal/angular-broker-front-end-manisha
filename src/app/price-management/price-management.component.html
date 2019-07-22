@@ -21,7 +21,6 @@
   <form [formGroup]="priceManagementForm" (ngSubmit) = "onSubmitDiscounts(priceManagementForm.value)" class="noborder">
     <div formArrayName="discounts">
       <h4> Sonderperioden </h4>
-      
     
       <div class="aufschlag" *ngFor="let adress of priceManagementForm.controls.discounts.controls;   let i = index"      [formGroupName]="i">
         <div>
@@ -33,6 +32,12 @@
           <label for="aufschlag1">Aufschlag (in %):</label>
           <input type="number" id="aufschlag1" formControlName="percentage"> 
         </div>
+    
+        <div>
+          <label for="avail">Nicht verfügbar </label>
+          <input type="checkbox" id="avail" formControlName="availability"> 
+        </div>
+
         <br/><br/>
       </div>
     </div>
