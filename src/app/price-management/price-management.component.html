@@ -1,0 +1,48 @@
+<h1>Kapazitäts- und Preisverwaltung</h1>
+
+
+<div *ngIf="loggedUser else default" class="frame">  
+
+  
+
+
+    <div class="inline onLeft">
+      <label for="preis" class="onTheLeft">Standardpreis <span *ngIf="loggedUser.role=='production' else transportPrice"> (€/Minute) </span> <ng-template #transportPrice> (€/km) </ng-template>: </label>
+      <input type="number" class="onTheLeft" id="preis" #preis > 
+      <button type="button" (click)="onSubmitPrice(preis)"> Preis aktualisieren </button>
+    </div>
+
+  <form [formGroup]="priceManagementForm" (ngSubmit) = "onSubmitDiscounts(priceManagementForm.value)" class="noborder">
+    <div formArrayName="discounts">
+      <h4> Sonderperioden </h4>
+      
+    
+      <div class="aufschlag" *ngFor="let adress of priceManagementForm.controls.discounts.controls;   let i = index"      [formGroupName]="i">
+        <div>
+          <label class="date" for="von1">Am:</label>
+          <input type="date" id="von1" formControlName="date"> 
+        </div>
+
+        <div>
+          <label for="aufschlag1">Aufschlag (in %):</label>
+          <input type="number" id="aufschlag1" formControlName="percentage"> 
+        </div>
+        <br/><br/>
+      </div>
+    </div>
+    
+
+    <div class="inline onLeft">
+      <button type="button" class="nomargin" (click)="addDiscounts()"> Weitere Zeile </button>
+      <button type="submit">Sonderperioden aktualisieren</button>
+    </div>
+  </form>
+  <div>
+    <br/> <br/>
+  <button type="button" class="nomargin colorOther" (click)="goToUserStats()"> Zurück zu Lieferanteninformationen </button>
+  </div>
+</div>
+
+<ng-template #default> 
+  Welcome ! You first need to register...
+</ng-template>
