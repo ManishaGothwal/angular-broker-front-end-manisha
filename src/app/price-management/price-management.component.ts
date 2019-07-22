@@ -50,7 +50,8 @@ export class PriceManagementComponent implements OnInit {
       discounts: this.formBuilder.array([
         this.formBuilder.group({
           date: [''],
-          percentage: ['']
+          percentage: [''],
+          availability : ['']
         }),
         
       ])
@@ -61,35 +62,6 @@ export class PriceManagementComponent implements OnInit {
    if(this.authService.getActualUser()){
     this.userSubscription.unsubscribe();
   }
-  }
-
-  onSubmit(priceData){
-    
-    const newCapacity = new Capacity(
-      priceData['default_price'],
-      this.getDiscounts(priceData),
-    );
-    const id = this.loggedUser['id'];
-    this.httpClient
-      .put<Capacity>('https://dpnb-broker.firebaseio.com/capacities/'+id+'.json', newCapacity)
-      .subscribe(
-        (val) => {
-          console.warn('Your data have been submitted', newCapacity);
-        },
-        error => {
-          console.log('Erreur ! : ' + error);
-        },
-        () =>{
-          console.log('Data saved');
-        },
-      );    
-
-    setTimeout(
-      ()=>{
-        this.priceManagementForm.reset();
-        this.router.navigate(['/user-stats']);
-      }, 2000
-    )
   }
 
   onSubmitDiscounts(priceData){
@@ -169,14 +141,19 @@ export class PriceManagementComponent implements OnInit {
 
   getDiscounts(priceData){
     let res = [];
+    
     for (let a in priceData['discounts']){
+      if((priceData['discounts'][a]['availability'])===false){
+        let  perc= priceData['discounts'][a]['percentage']}
+      else{
+        let perc =999;
+      }
         res.push({
           date: priceData['discounts'][a]['date'], 
-          percentage: priceData['discounts'][a]['percentage']
+          percentage: perc,
         })
     }
     return res;
-    console.log(res);
   }
 
   goToUserStats(){
