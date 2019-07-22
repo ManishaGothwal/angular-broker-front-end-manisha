@@ -9,7 +9,13 @@
     <div class="inline onLeft">
       <label for="preis" class="onTheLeft">Standardpreis <span *ngIf="loggedUser.role=='production' else transportPrice"> (€/Minute) </span> <ng-template #transportPrice> (€/km) </ng-template>: </label>
       <input type="number" class="onTheLeft" id="preis" #preis > 
-      <button type="button" (click)="onSubmitPrice(preis)"> Preis aktualisieren </button>
+      <button type="button" (click)="onSubmitPrice(preis)"> Standardpreis aktualisieren </button>
+    </div>
+
+    <div class="inline onLeft"  *ngIf="loggedUser.role=='transport'" >
+      <label for="minpreis" class="onTheLeft"> Minimalpreis (€): </label>
+      <input type="number" class="onTheLeft" id="minpreis" #minpreis > 
+      <button type="button" (click)="onSubmitMinPrice(minpreis)"> Minimalpreis aktualisieren </button>
     </div>
 
   <form [formGroup]="priceManagementForm" (ngSubmit) = "onSubmitDiscounts(priceManagementForm.value)" class="noborder">

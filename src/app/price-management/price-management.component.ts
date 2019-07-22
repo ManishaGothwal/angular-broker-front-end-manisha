@@ -143,6 +143,30 @@ export class PriceManagementComponent implements OnInit {
     )
   }
 
+  onSubmitMinPrice(minpreis){
+    const minprice= minpreis.value;
+    const id = this.loggedUser['id'];
+    this.httpClient
+      .put('https://dpnb-broker.firebaseio.com/capacities/'+id+'/minimumprice.json', minprice)
+      .subscribe(
+        (val) => {
+          console.warn('Your data have been submitted', minprice);
+        },
+        error => {
+          console.log('Erreur ! : ' + error);
+        },
+        () =>{
+          console.log('Data saved');
+        },
+      ); 
+    setTimeout(
+      ()=>{
+        this.router.navigate(['/user-stats']);
+      }, 2000
+    )
+
+  }
+
   getDiscounts(priceData){
     let res = [];
     for (let a in priceData['discounts']){

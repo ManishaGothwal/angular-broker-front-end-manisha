@@ -85,7 +85,7 @@ export class AuthService {
         (response: Capacity[]) => {
           let discounts: Discount[]=[];
           for (let elt in response[userId]){
-            if(elt!="default_price"){
+            if(elt!="default_price" && elt!="minimumprice"){
               for(let di in response[userId][elt]["discounts"]){
                 discounts.push( {
                   percentage: response[userId][elt]["discounts"][di]["percentage"],
@@ -96,6 +96,7 @@ export class AuthService {
           }
           this.actualUserCapacities.push({
             default_price: response[userId]["default_price"],
+            min_price: response[userId]["minimumprice"],
             discounts: discounts,
           })
             

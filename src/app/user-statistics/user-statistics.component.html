@@ -15,7 +15,8 @@
   <div class="userPrices">
     <h3>Preis- und Kapazitätsinformationen </h3>
     <div *ngFor="let item of capacities" > 
-      <span class="higherWeight"> Standardpreis: </span> {{ item.default_price }} <span *ngIf="loggedUser.role=='production' else transportPrice"> €/Minute </span> <ng-template #transportPrice> €/km </ng-template>
+      <span class="higherWeight"> Standardpreis: </span> {{ item.default_price }} <span *ngIf="loggedUser.role=='production' else transportPrice"> €/Minute </span> <ng-template #transportPrice> €/km </ng-template> <br/>
+      <span *ngIf="loggedUser.role=='transport'"> <span class="higherWeight"> Minimalpreis: </span> {{ item.min_price }} € </span> 
       <div class="inlineH">
         <div *ngFor="let disc of item.discounts" class="discount">
          <div *ngIf="disc.date"> 
