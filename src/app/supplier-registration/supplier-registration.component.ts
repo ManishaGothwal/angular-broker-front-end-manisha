@@ -25,6 +25,7 @@ export class SupplierRegistrationComponent implements OnInit {
   role: FormControl;
   machines: FormArray;
   abilities: FormControl;
+  abilitiesTransport: FormArray;
   company_address: FormGroup;
   street: FormControl;
   nb: FormControl;
@@ -52,6 +53,11 @@ export class SupplierRegistrationComponent implements OnInit {
     { id: 'TRANSPORT_COOLING', item: 'Transportkühlung vorhanden'},
   ];
 
+  abilities_t = [
+    { id: 'PALETTENANSCHLAGLEISTE', ability: 'Palettenanschlagleiste vorhanden'},
+    { id: 'HEBEBUHNE', ability: 'Hebebühne  vorhanden'},
+  ];
+
  
 
   constructor(
@@ -69,6 +75,7 @@ export class SupplierRegistrationComponent implements OnInit {
 
     const formControlsQ = this.qualifications_arr.map(control => new FormControl(false));
     const formControlsM = this.machines_arr.map(control => new FormControl(false));
+    const formControlsT = this.abilities_t.map(control => new FormControl(false));
 
     this.username = new FormControl('', [Validators.required, UserNameValidator(this.userService.getUsers())]);
     this.password = new FormControl('', Validators.required);
@@ -88,6 +95,7 @@ export class SupplierRegistrationComponent implements OnInit {
     this.qualifications = new FormArray(formControlsQ);
     this.role = new FormControl('', Validators.required);
     this.abilities = new FormControl('');
+    this.abilitiesTransport = new FormArray(formControlsT);
       
     this.registrationForm = this.formBuilder.group({
       'username': this.username,
@@ -98,10 +106,17 @@ export class SupplierRegistrationComponent implements OnInit {
       'role': this.role,
       machines: new FormArray(formControlsM),
       'abilities': '',
+      'abilitiesTransport': this.abilitiesTransport,
     });
   }
 
   onSubmit(supplierData){
+    if (supplierData['role']=="production"){
+      let capa = this.convertCapa(supplierData)
+    }
+    else{
+      let capa = this.convertCapaT(supplierData)
+    }
     const newSupplier = new User(
       '',
       supplierData['username'],
@@ -116,7 +131,7 @@ export class SupplierRegistrationComponent implements OnInit {
       this.convertMachine(supplierData),
       this.convertQualif(supplierData),
       supplierData['role'],
-      this.convertCapa(supplierData),
+      capa,
     );
     console.warn('Your data have been submitted', newSupplier);
     this.userService.saveOneUserToServer(newSupplier);
@@ -154,16 +169,27 @@ convertQualif(supplierData) : string[] {
   return res;
 }
 
+//capacities of transport suppliers
+convertCapaT(supplierData) : string[] {
+  let res = [];
+  let initCapa = supplierData['abilitiesTransport'] ? supplierData['abilitiesTransport'] : [];
+  let i = 0;
+  console.log(initCapa);
+  while (i<initCapa.length){
+    if (initCapa[i]===true){
+      res.push(this.abilities_t[i].id);
+    };
+    i++;
+  }
+  return res;
+}
+
+//capacities of production suppliers
 convertCapa(supplierData) : string[] {
   let res = [];
   let initCapa = supplierData['abilities'] ;
   if (initCapa===true){
-    if(supplierData['role']==='production'){
-      res.push(this.capability_arr[0].id);
-    }
-    else{
-       res.push(this.capability_arr[1].id);
-    }
+    res.push(this.capability_arr[0].id);
   }
   return res;
 }
