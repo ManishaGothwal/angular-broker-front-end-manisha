@@ -9,6 +9,7 @@ export class User {
     public company_name: string,
     public company_address: Address,
     public machines: string[],
+    public trucks: string[],
     public qualifications: string[],
     public role: string,
     public abilities: string[]
@@ -19,6 +20,7 @@ export class User {
     this.company_address = user.company_address;
     this.company_name = user.company_name;
     this.machines = user.machines;
+    this.trucks = user.trucks;
     this.password = user.password;
     this.qualifications = user.qualifications;
     this.role = user.role;
