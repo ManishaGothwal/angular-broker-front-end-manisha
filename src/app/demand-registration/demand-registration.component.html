@@ -45,19 +45,19 @@
   </div>
 	
 	<h3> Produktauswahl: </h3>
-		<label for="produkt1">Einfarbig <img src = "{{ein}}" width=40px/> </label> 
+		<label for="produkt1">Einfarbiges Ei<img src = "{{ein}}" width=40px/> </label> 
 		<input type="radio" id="produkt1" formControlName="product_id"  value="einfarbig" required>
 		<br>
 	
-		<label for="produkt2">Zweifarbig <img src = "{{zwei}}" width=40px/></label>	
+		<label for="produkt2">Zweifarbiges Ei<img src = "{{zwei}}" width=40px/></label>	
 		<input type="radio" id="produkt2" formControlName="product_id" value="zweifarbig" required>
 		<br>
 
-		<label for="produkt3">Einfarbig + Stützmaterial <img src = "{{stutz}}" width=40px/></label>	
+		<label for="produkt3">Einfarbiger Hut<img src = "{{stutz}}" width=40px/></label>	
 		<input type="radio" id="produkt3" formControlName="product_id" value="stutzmaterial" required>
 		<br>
 
-    <label for="produkt4">Einfarbig + Zweifarbig <img src = "{{einzwei}}" width=40px/></label>	
+    <label for="produkt4">Zweifarbiges Ei und Hut<img src = "{{zweistutz}}" width=40px/></label>	
 		<input type="radio" id="produkt4" formControlName="product_id" value="ein-zweifarbig" required>
 		<br>
     <p *ngIf="product_id.errors?.required" class="errorMessage" style="margin-block-end:0">
