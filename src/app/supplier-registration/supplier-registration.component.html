@@ -110,12 +110,19 @@
 
   <ng-template #transport>
     <div *ngIf="registrationForm.controls.role.value=='transport'">
-      <h4> Fähigkeiten: </h4>
+	<h4> Fahrzeugstype: </h4>
+      	<div formArrayName="trucks"
+        	*ngFor="let type of registrationForm.controls.trucks.controls; let i=index">
+          <label> {{ truck_arr[i].type }} </label>
+          <input type="checkbox" [formControlName]="i" > 
+          <br/>		
+      	</div>
+      	<h4> Fähigkeiten: </h4>
         <div formArrayName="abilitiesTransport" *ngFor="let abilitiy of registrationForm.controls.abilitiesTransport.controls; let i=index">
         <label> {{ abilities_t[i].ability }} </label>
 		    <input type="checkbox" [formControlName]="i" >
-      <br/>	
-    </div>	
+      	<br/>	
+    	</div>	
     </div>
   </ng-template>
 
