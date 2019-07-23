@@ -24,6 +24,7 @@ export class SupplierRegistrationComponent implements OnInit {
   qualifications: FormArray;
   role: FormControl;
   machines: FormArray;
+  trucks: FormArray;
   abilities: FormControl;
   abilitiesTransport: FormArray;
   company_address: FormGroup;
@@ -47,7 +48,13 @@ export class SupplierRegistrationComponent implements OnInit {
     { id: 'LARGE_DUPLEX', type: 'Großer  3D-Drucker, Zweifarbig'},
     { id: 'LARGE_SUPPORT', type: 'Großer  3D-Drucker, Mit Stützmaterial'},
   ];
-
+  
+  truck_arr = [
+    { id: 'PKW_CADDY', type: 'PKW Caddy'},
+    { id: '7T_FAHRZEUG', type: '7,5t Fahrzeug'},
+    { id: '40T_FAHRZEUG', type: '40t Fahrzeug'},
+  ];
+  
   capability_arr = [
     { id: 'ASSEMBLY_ASSISTANT', item: 'Montageassistent vorhanden'},
     { id: 'TRANSPORT_COOLING', item: 'Transportkühlung vorhanden'},
@@ -76,6 +83,7 @@ export class SupplierRegistrationComponent implements OnInit {
     const formControlsQ = this.qualifications_arr.map(control => new FormControl(false));
     const formControlsM = this.machines_arr.map(control => new FormControl(false));
     const formControlsT = this.abilities_t.map(control => new FormControl(false));
+    const formControlsF = this.truck_arr.map(control => new FormControl(false));
 
     this.username = new FormControl('', [Validators.required, UserNameValidator(this.userService.getUsers())]);
     this.password = new FormControl('', Validators.required);
@@ -105,6 +113,7 @@ export class SupplierRegistrationComponent implements OnInit {
       'qualifications': this.qualifications,
       'role': this.role,
       machines: new FormArray(formControlsM),
+      trucks: new FormArray(formControlsF),
       'abilities': '',
       'abilitiesTransport': this.abilitiesTransport,
     });
@@ -129,6 +138,7 @@ export class SupplierRegistrationComponent implements OnInit {
         supplierData['company_address']['city'],
       ),
       this.convertMachine(supplierData),
+      this.convertTrucks(supplierData),
       this.convertQualif(supplierData),
       supplierData['role'],
       capa,
@@ -150,6 +160,19 @@ convertMachine(supplierData) : string[] {
   while (i<initMach.length){
     if (initMach[i]===true){
       res.push(this.machines_arr[i].id);
+    };
+    i++;
+  }
+  return res;
+}
+  
+convertTrucks(supplierData) : string[] {
+  let res = [];
+  let initTruck = supplierData['trucks'] ? supplierData['trucks'] : [];
+  let i = 0;
+  while (i<initTruck.length){
+    if (initTruck[i]===true){
+      res.push(this.truck_arr[i].id);
     };
     i++;
   }
