@@ -1,4 +1,6 @@
 import { Address } from './address.model';
+import { Machines } from './machines.model';
+import { Trucks } from './trucks.model';
 
 export class User {
 
@@ -8,8 +10,8 @@ export class User {
     public password: string,
     public company_name: string,
     public company_address: Address,
-    public machines: string[],
-    public trucks: string[],
+    public machines: Machines,
+    public trucks: Trucks,
     public qualifications: string[],
     public role: string,
     public abilities: string[]

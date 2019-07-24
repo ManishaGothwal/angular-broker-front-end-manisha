@@ -81,11 +81,13 @@
 
 	<h3> Rolle: </h3>
 		<label for="produktion">Produktionsanbieter</label>
-		<input type="radio" formControlName="role" id="rolleProd" value="production">
+	<input type="radio" formControlName="role" id="rolleProd" value="production">
+
 		<br>
 	
 		<label for="transport">Transportdienstleister</label>	
-		<input type="radio" formControlName="role" id="rolleTrans" value="transport">
+	<input type="radio" formControlName="role" id="rolleTrans" value="transport">
+      
 		<br>
     <div *ngIf="role.errors?.required" class="errorMessage">
           <p >Sie müssen eine Rolle wählen</p>
@@ -98,7 +100,7 @@
     <div formArrayName="machines"
       *ngFor="let type of registrationForm.controls.machines.controls; let i=index">
       <label> {{ machines_arr[i].type }} </label>
-		  <input type="checkbox" [formControlName]="i" > 
+      <input type="number" [formControlName]="i" >
       <br/>		
     </div>
 
@@ -114,7 +116,7 @@
       	<div formArrayName="trucks"
         	*ngFor="let type of registrationForm.controls.trucks.controls; let i=index">
           <label> {{ truck_arr[i].type }} </label>
-          <input type="checkbox" [formControlName]="i" > 
+          <input type="number" [formControlName]="i" > 
           <br/>		
       	</div>
       	<h4> Fähigkeiten: </h4>

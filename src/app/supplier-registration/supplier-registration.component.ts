@@ -51,8 +51,8 @@ export class SupplierRegistrationComponent implements OnInit {
   
   truck_arr = [
     { id: 'PKW_CADDY', type: 'PKW Caddy'},
-    { id: '7T_FAHRZEUG', type: '7,5t Fahrzeug'},
-    { id: '40T_FAHRZEUG', type: '40t Fahrzeug'},
+    { id: '_7T_FAHRZEUG', type: '7,5t Fahrzeug'},
+    { id: '_40T_FAHRZEUG', type: '40t Fahrzeug'},
   ];
   
   capability_arr = [
@@ -153,28 +153,47 @@ export class SupplierRegistrationComponent implements OnInit {
     );
   }
 
+//convertMachine(supplierData) : string[] {
+ // let res = [];
+  //let initMach = supplierData['machines'] ? supplierData['machines'] : [];
+  //let i = 0;
+  //while (i<initMach.length){
+    //if (initMach[i]===true){
+      //res.push(this.machines_arr[i].id);
+   // };
+    //i++;
+  //}
+  //return res;
+//}
 convertMachine(supplierData) : string[] {
-  let res = [];
+  let res = {};
   let initMach = supplierData['machines'] ? supplierData['machines'] : [];
-  let i = 0;
-  while (i<initMach.length){
-    if (initMach[i]===true){
-      res.push(this.machines_arr[i].id);
-    };
-    i++;
+  console.log(initMach);
+  //let i=0;
+  for(let i = 0; i < initMach.length; i++ ){
+    if(initMach[i]=== false){
+      res[this.machines_arr[i].id]=0;
+    }
+      else
+    {
+      res[this.machines_arr[i].id]= initMach[i];
+    }
   }
   return res;
 }
-  
+
 convertTrucks(supplierData) : string[] {
-  let res = [];
+  let res = {};
   let initTruck = supplierData['trucks'] ? supplierData['trucks'] : [];
-  let i = 0;
-  while (i<initTruck.length){
-    if (initTruck[i]===true){
-      res.push(this.truck_arr[i].id);
-    };
-    i++;
+  console.log(initTruck);
+  //let i = 0;
+  for (let j=0; j < initTruck.length; j++){
+    if(initTruck[j]=== false){
+      res[this.truck_arr[j].id]=0;
+    }
+    else{
+      res[this.truck_arr[j].id]= initTruck[j];
+    }
   }
   return res;
 }
