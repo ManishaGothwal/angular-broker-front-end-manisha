@@ -63,6 +63,7 @@ export class SupplierRegistrationComponent implements OnInit {
   abilities_t = [
     { id: 'PALETTENANSCHLAGLEISTE', ability: 'Palettenanschlagleiste vorhanden'},
     { id: 'HEBEBUHNE', ability: 'Hebebühne  vorhanden'},
+    { id: 'ZEITSTEMPEL', ability: 'Zeitstempel'},
   ];
 
  
