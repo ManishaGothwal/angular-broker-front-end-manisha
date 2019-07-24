@@ -19,7 +19,7 @@ export class DemandRegistrationComponent implements OnInit {
   ein= imagesUrl["ein"];
   zwei= imagesUrl["zwei"];
   stutz= imagesUrl["stutz"];
-  einzwei= imagesUrl["einzwei"];
+  zweistutz= imagesUrl["zweistutz"];
 
   company_name: FormControl;
   delivery_address: FormGroup;
